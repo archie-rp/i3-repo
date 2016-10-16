@@ -1,0 +1,104 @@
+! special
+*.foreground:   #d2d0d4
+*.background:   #222024
+*.cursorColor:  #d2d0d4
+
+! black
+*.color0:       #222024
+*.color8:       #424044
+
+! red
+*.color1:       #525054
+*.color9:       #d23266
+
+! green
+*.color2:       #626064
+*.color10:      #ac204f
+
+! yellow
+*.color3:       #727074
+*.color11:      #861b3e
+
+! blue
+*.color4:       #828084
+*.color12:      #2cc9e8
+
+! magenta
+*.color5:       #929094
+*.color13:      #1d8499
+
+! cyan
+*.color6:       #a2a0a4
+*.color14:      #186d7e
+
+! white
+*.color7:       #bfbdc2
+*.color15:      #e9e7eb
+
+
+Xft.dpi:        96:unscaled
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintmedium
+Xft.lcdfilter:  lcddefault
+URxvt.transparent:   false
+URxvt.shading:       40
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+URxvt*scrollBar: true
+
+URxvt.scrollstyle: plain
+URxvt*scrollBar_right: true
+
+URxvt.font: xft:M+ 1mn:style=medium:size=8
+URxvt.boldFont: xft:M+ 1mn:style=bold:size=8
+URxvt.italicFont: xft:M+ 1mn:style=light:size=8
+
+!URxvt.font: -ypn-envypn-medium-r-normal--15-150-75-75-c-90-iso8859-1
+!URxvt.boldFont: -ypn-envypn-medium-r-normal--15-150-75-75-c-90-iso8859-1
+!URxvt.italicFont: -ypn-envypn-medium-r-normal--15-150-75-75-c-90-iso8859-1
+
+URxvt*internalBorder: 5
+
+
+
+!URxvt*geometry: 85x25
+!URxvt*saveLines: 20000
+
+URxvt*pointerBlank: true
+! clickable URLS please
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
+URxvt*skipBuiltinGlyph: true
+
+!URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /home/inaki/bin/firefox
+URxvt.matcher.button: 1
+
+URxvt*keysym.Meta-f: \033[1;5C
+URxvt*keysym.Meta-b: \033[1;5D
+URxvt.keysym.C-Up             : \033[1;5A
+URxvt.keysym.C-Down           : \033[1;5B
+URxvt.keysym.C-Right          : \033[1;5C
+URxvt.keysym.C-Left           : \033[1;5D
+! State:            bg,       fg,       bgalt,    hlbg,     hlfg
+rofi.color-normal:  #2d2d2d,   #d3d0c8,   #2d2d2d,   #747369,   #f2f0ec
+rofi.color-urgent:  #2d2d2d,   #d3d0c8,   #2d2d2d,   #747369,   #f2f0ec
+rofi.color-active:  #2d2d2d,   #d3d0c8,   #2d2d2d,   #747369,   #f2f0ec
+
+!                   background,     border
+rofi.color-window:  #2d2d2d,        #8ea68e
+Contact GitHub API Training Shop Blog About
+
+! clipboard management
+!URxvt.perl-ext-common:  default,clipboard
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste

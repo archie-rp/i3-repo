@@ -1,0 +1,2 @@
+#!/bin/sh
+feh  --bg-scale '/home/archierp/Imagens/wallhaven-429537.jpg' 

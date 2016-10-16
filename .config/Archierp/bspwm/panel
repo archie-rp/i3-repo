@@ -1,0 +1,55 @@
+#! /bin/sh
+
+if xdo id -a "$PANEL_WM_NAME" > /dev/null ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+bspc config top_padding 24
+bspc subscribe report > "$PANEL_FIFO" &
+echo 'TArchierp' > "$PANEL_FIFO" &
+#xtitle -sf 'T%s' > "$PANEL_FIFO" &
+#clock -sf 'S%a %H:%M' > "$PANEL_FIFO" &
+#%{F$pIcon}\u$1 %{F$pFG}
+
+# Loop to check time, battery and volume status
+while true; do
+	AP=$(iwconfig wlp3s0 | grep 'ESSID:' | awk '{print $4}' | sed 's/ESSID://g' | sed 's/"//g')
+	Vol=$(pulseaudio-ctl | grep "Volume level" | cut -d":" -f 2 | grep -Eo "[0-9]+ %" | tr -d ' %')
+	Bat=$(acpi | egrep -o "[0-9]+%")
+	clock=$(date +'S%b %d %a %H:%M')
+	#echo 'I'$RED$AP$branco' ⮞'$RED $Vol$branco '⮏' $LIGHTGREY $Bat'%' $branco> "$PANEL_FIFO" &
+	echo 'N' $AP > "$PANEL_FIFO" &
+	echo 'E' > "$PANEL_FIFO" &
+	echo 'V' $Vol > "$PANEL_FIFO" &
+	echo 'Q' > "$PANEL_FIFO" &
+	echo 'X' > "$PANEL_FIFO" &
+	echo 'B' $Bat > "$PANEL_FIFO" &
+	echo $clock > "$PANEL_FIFO" &
+sleep 0.1s
+done &
+
+. panel_colors
+#x$PANEL_HEIGHT
+#fonts
+ICON_FONT="-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1"
+#FONT1="-ypn-envypn-medium-r-normal--13-130-75-75-c-90-iso8859-1" ------------f "$ICON_FONT"  -f "$FONT1"
+FONT1="-lucy-tewi-medium-r-normal--11-90-100-100-c-60-iso10646-1"
+
+panel_bar < "$PANEL_FIFO" | lemonbar -a 32  "$PANEL_WM_NAME" -g "1166x22+100+0" -f "$ICON_FONT"  -f "$FONT1" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" | sh &
+#cat "$PANEL_FIFO" | panel_bar | lemonbar -a 32 -g "1166x22+100+5" -f "$PANEL_FONT_FAMILY" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" &
+wid=$(xdo id -a "$PANEL_WM_NAME")
+tries_left=20
+while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
+	sleep 0.05
+	wid=$(xdo id -a "$PANEL_WM_NAME")
+	tries_left=$((tries_left - 1))
+done
+[ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+
+wait

@@ -1,0 +1,34 @@
+#! /bin/sh
+
+sxhkd &
+panel &
+
+bspc config border_width         4s
+bspc config window_gap          8
+bspc config split_ratio             0.50
+bspc config borderless_monocle      true
+bspc config gapless_monocle         true
+bspc config focus_follows_pointer   true
+bspc config history_aware_focus     true
+bspc config auto_cancel             true
+bspc config apply_shadow_property true
+
+# Settings
+# bspc config auto_alternate          true
+# bspc config auto_cancel             true
+# bspc config adaptative_raise        true
+# bspc config pointer_follows_monitor true
+
+
+bspc monitor -d Web Term Music Chat Thunar Other
+
+bspc desktop ^1 -l monocle
+
+# Rules
+bspc rule -a google-chrome-stable desktop=^1
+bspc rule -a messengerfordesktop desktop=^4 floating=on
+bspc rule -a deadbeef floating=on
+bspc rule -a transmission-gtk desktop=^6
+bspc rule -a lxappearance floating=on center=true
+bspc rule -a nitrogen floating=on center=true
+bspc rule -a file-roller floating=on center=true
